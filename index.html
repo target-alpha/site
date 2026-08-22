@@ -24,6 +24,15 @@
       window.__TA_SANITY_QUERY_URL__ = "";
       window.__TA_ASSET_VERSION__ = "2026.08.20-motion-2";
       (() => {
+        if (location.protocol === "file:") return;
+        const basePath = window.__TA_HTTP_ASSET_ROOT__.replace(/\/$/, "");
+        const studioRoot = `${basePath}/studio`;
+        const isStudioDeepLink = location.pathname.startsWith(`${studioRoot}/`) && location.pathname !== `${studioRoot}/`;
+        if (location.pathname === studioRoot || isStudioDeepLink) {
+          location.replace(`${studioRoot}/${location.search}${location.hash}`);
+        }
+      })();
+      (() => {
         const assetRoot = location.protocol === "file:" ? window.__TA_FILE_ASSET_ROOT__ : window.__TA_HTTP_ASSET_ROOT__;
         document.querySelector("#site-favicon").href = `${assetRoot}/favicon.svg`;
         ["base", "layout", "pages", "motion"].forEach((name) => {
