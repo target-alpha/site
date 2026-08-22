@@ -2,6 +2,20 @@
 
 Most annual updates require editing a single object in `src/content`. No page layout code needs to change.
 
+> Edit source files only. `dist/` and `app.js` are generated and manual changes to them will be overwritten.
+
+## Editing through Sanity
+
+After the CMS setup in `SANITY.md` is complete, team members should edit and publish content through the hosted Sanity Studio. No GitHub editing, local build, or command line is required for routine content changes. The repository content documented below remains the emergency fallback and migration reference.
+
+## Publishing an edit from GitHub (no local setup)
+
+1. Open the repository on GitHub and navigate to the content file you need (for example, `src/content/team.js`).
+2. Select the pencil icon (**Edit this file**), make the change, and use **Commit changes** to commit it directly to `main`.
+3. GitHub Actions validates, builds, and publishes the site automatically. The update is normally live within a couple of minutes at https://sqhil-a.github.io/target-alpha-example/.
+
+There is no need to run `npm`, edit `app.js`, or edit anything in `dist/` when using GitHub's browser editor. If the commit reports a failed check, open the linked Actions run; it will identify the content field that needs correcting.
+
 ## Updating the national team
 
 Open `src/content/team.js`. The `nationalTeams` object is grouped by year. Each executive is one entry in that year’s `members` array:
@@ -40,16 +54,14 @@ The profile grid and biography page use the same image automatically. The curren
 
 1. Copy the newest year block inside `nationalTeams`.
 2. Change its key, `year`, `path`, and member entries.
-3. Add the new year to the start of `nationalTeamYears`.
-4. Add a matching route in `src/content/routes.js` with `type: "team"`.
 
-The previous year remains available as an archive without additional page work.
+The year archive navigation and route are generated automatically from the team object. Keep the newest year block first; previous years remain available as archives without additional page work.
 
 ## Updating regional executives
 
 Regional program copy and application details are in `src/content/regionalExecutives.js` under `regionalOverview`. Regional cohorts use the same yearly pattern under `regionalTeams`.
 
-To create a new regional cohort, copy the newest year block, update its members, add the year to `regionalTeamYears`, and add one `regionalTeam` route in `src/content/routes.js`.
+To create a new regional cohort, copy the newest year block, change its key, `year`, `path`, and members, and keep it first in `regionalTeams`. The archive navigation and route are generated automatically.
 
 ## Updating competitions
 
@@ -89,7 +101,7 @@ Reordering the array changes the display order. Deleting the object removes the 
 
 ## Adding a news feature
 
-Open `src/content/news.js` and add one entry with `publication`, `headline`, `articleUrl`, optional `videoUrl`, optional `date`, and `image`. Never use `#` for an unpublished link—use `null` until the destination exists.
+Open `src/content/news.js` and add one entry with `publication`, `headline`, `articleUrl`, optional `videoUrl`, optional `date`, and `image`. Never use `#` for an unpublished link - use `null` until the destination exists.
 
 ## Updating chapter links and registration
 
@@ -109,11 +121,11 @@ The newsletter form identifiers are in `site.newsletter`. If Target Alpha moves 
 - News images: store in `public/images/news/`
 - Partner marks: store in `public/images/partners/`
 
-Use descriptive lowercase filenames with hyphens. After any update, run:
+Use descriptive lowercase filenames with hyphens. If you are editing locally, run:
 
 ```bash
 npm run check
 npm run build
 ```
 
-Fix any reported missing route, placeholder link, or data-count issue before publishing `dist/`.
+Fix any reported missing route, placeholder link, or data-count issue before committing. When editing through GitHub's browser interface, these checks run automatically after the commit and the deployment is automatic.

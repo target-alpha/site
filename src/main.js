@@ -77,7 +77,7 @@ function pageFor(route, view) {
 
 function updateMetadata(route, view) {
   const fallback = {
-    title: "Page not found — Target Alpha Canada",
+    title: "Page not found - Target Alpha Canada",
     description: "The requested Target Alpha Canada page could not be found."
   };
   const meta = route || fallback;

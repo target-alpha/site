@@ -5,7 +5,7 @@ import { bundle } from "./bundle.mjs";
 
 const root = process.cwd();
 const port = Number(process.env.PORT || 4173);
-bundle();
+await bundle();
 const mime = {
   ".css": "text/css; charset=utf-8",
   ".html": "text/html; charset=utf-8",

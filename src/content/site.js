@@ -1,3 +1,5 @@
+import { cmsContent, mergeCmsObject, replaceFromCms } from "./cms.js";
+
 export const site = {
   name: "Target Alpha Canada",
   shortName: "Target Alpha",
@@ -102,7 +104,7 @@ export const chapterContent = {
     {
       name: "Hiba Mulji",
       role: "Target Alpha Chapter President",
-      quote: "Leading a TA chapter has been an incredible opportunity to connect with a wider community of business enthusiasts. As a school club with limited resources but big aspirations—like hosting a region-wide competition such as The Founder’s Den—being a TA Chapter President gave me the chance to collaborate with another amazing chapter, Brampton TA, to turn our vision into reality. The support and consistency from the chapter development team, along with the connections made through our roundtables, have helped me grow both personally and professionally. I highly recommend that any high school student with an interest in business apply to start a chapter!",
+      quote: "Leading a TA chapter has been an incredible opportunity to connect with a wider community of business enthusiasts. As a school club with limited resources but big aspirations - like hosting a region-wide competition such as The Founder’s Den - being a TA Chapter President gave me the chance to collaborate with another amazing chapter, Brampton TA, to turn our vision into reality. The support and consistency from the chapter development team, along with the connections made through our roundtables, have helped me grow both personally and professionally. I highly recommend that any high school student with an interest in business apply to start a chapter!",
       image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/9a8dc18f-637b-4a05-a386-c21ebc94c474/Target+Alpha+Headshot.png"
     },
     {
@@ -169,3 +171,15 @@ export const sponsorLogos = [
   { name: "UTSC MAccFin", href: "https://utsc.utoronto.ca/mgmt/maccfin-canadas-only-master-accounting-and-finance", image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/6c1a3a4c-0397-4255-8ffc-bdf1d8e48b32/maccfin-400x307.png" },
   { name: "iA Financial", href: "https://ia.ca/", image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/f62d5df6-a892-432f-ae73-a9c562d45c27/ia+financial.png" }
 ];
+
+const settings = cmsContent.siteSettings;
+if (settings) {
+  mergeCmsObject(site, settings.site);
+  mergeCmsObject(homeContent, settings.homeContent);
+  mergeCmsObject(aboutContent, settings.aboutContent);
+  mergeCmsObject(chapterContent, settings.chapterContent);
+  mergeCmsObject(academiaContent, settings.academiaContent);
+  replaceFromCms(chapterResources, settings.chapterResources);
+}
+replaceFromCms(partners, cmsContent.partners);
+replaceFromCms(sponsorLogos, cmsContent.sponsorLogos);

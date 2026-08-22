@@ -1,3 +1,5 @@
+import { cmsContent, replaceFromCms } from "./cms.js";
+
 export const judges = [
   {
     name: "Pensee Liang",
@@ -120,3 +122,5 @@ export const judges = [
     image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/f5b674ff-ab71-4076-96c0-f0b0b6feda91/1729153650919.jpeg"
   }
 ];
+
+replaceFromCms(judges, cmsContent.judges);

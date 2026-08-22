@@ -21,6 +21,7 @@
       window.__TA_FILE_ASSET_ROOT__ = ".";
       window.__TA_HTTP_ASSET_ROOT__ = "";
       window.__TA_INITIAL_ROUTE__ = "/";
+      window.__TA_SANITY_QUERY_URL__ = "";
       window.__TA_ASSET_VERSION__ = "2026.08.20-motion-2";
       (() => {
         const assetRoot = location.protocol === "file:" ? window.__TA_FILE_ASSET_ROOT__ : window.__TA_HTTP_ASSET_ROOT__;
@@ -41,15 +42,32 @@
     <script>
       (() => {
         const assetRoot = location.protocol === "file:" ? window.__TA_FILE_ASSET_ROOT__ : window.__TA_HTTP_ASSET_ROOT__;
-        const script = document.createElement("script");
-        script.src = `${assetRoot}/app.js?v=${window.__TA_ASSET_VERSION__}`;
-        script.onerror = () => {
-          const notice = document.createElement("p");
-          notice.className = "boot-error";
-          notice.textContent = "The site could not start. Run npm run build and try again.";
-          document.querySelector("#app")?.replaceChildren(notice);
+        const startSite = () => {
+          const script = document.createElement("script");
+          script.src = `${assetRoot}/app.js?v=${window.__TA_ASSET_VERSION__}`;
+          script.onerror = () => {
+            const notice = document.createElement("p");
+            notice.className = "boot-error";
+            notice.textContent = "The site could not start. Run npm run build and try again.";
+            document.querySelector("#app")?.replaceChildren(notice);
+          };
+          document.body.appendChild(script);
         };
-        document.body.appendChild(script);
+        const queryUrl = window.__TA_SANITY_QUERY_URL__;
+        if (!queryUrl || location.protocol === "file:") {
+          startSite();
+          return;
+        }
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4000);
+        fetch(queryUrl, { headers: { Accept: "application/json" }, signal: controller.signal })
+          .then((response) => response.ok ? response.json() : Promise.reject(new Error(`Sanity returned ${response.status}`)))
+          .then((payload) => { if (payload.result) window.__TA_CMS_CONTENT__ = payload.result; })
+          .catch(() => {})
+          .finally(() => {
+            clearTimeout(timeout);
+            startSite();
+          });
       })();
     </script>
   </body>

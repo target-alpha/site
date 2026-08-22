@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://targetalpha.ca/sitemap.xml

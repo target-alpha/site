@@ -1,3 +1,5 @@
+import { cmsContent, replaceFromCms } from "./cms.js";
+
 export const news = [
   {
     publication: "CTV News",
@@ -16,3 +18,5 @@ export const news = [
     date: null
   }
 ];
+
+replaceFromCms(news, cmsContent.news);

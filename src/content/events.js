@@ -1,3 +1,5 @@
+import { cmsContent, replaceFromCms } from "./cms.js";
+
 export const events = [
   {
     slug: "spc",
@@ -43,5 +45,7 @@ export const events = [
     image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/f4fdb13b-650d-400a-9679-e5b95b0d90ec/IMG_8598.JPG?format=1500w"
   }
 ];
+
+replaceFromCms(events, cmsContent.events);
 
 export const eventSourceNote = "The source site states that Target Alpha has four major competitions, while its current events page details SPC, STC, and FPC. JSTC is also referenced by acronym on the Regional Executives page. No additional JSTC description or current link is published, so none has been invented here.";

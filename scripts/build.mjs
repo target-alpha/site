@@ -1,17 +1,21 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { routes } from "../src/content/routes.js";
 import { bundle } from "./bundle.mjs";
+import { fetchSanityContent, getSanityQueryUrl } from "./sanity.mjs";
 
 const root = process.cwd();
 const output = join(root, "dist");
 const shell = readFileSync(join(root, "index.html"), "utf8");
 const publicBasePath = (process.env.PUBLIC_BASE_PATH || "").replace(/\/$/, "");
-bundle();
+const sanityQueryUrl = getSanityQueryUrl();
+const cmsContent = await fetchSanityContent();
+globalThis.__TA_CMS_CONTENT__ = cmsContent;
+const { routes } = await import("../src/content/routes.js");
+await bundle(cmsContent);
 
 if (existsSync(output)) rmSync(output, { recursive: true });
 mkdirSync(output, { recursive: true });
-cpSync(join(root, "src"), join(output, "src"), { recursive: true });
+cpSync(join(root, "src", "styles"), join(output, "src", "styles"), { recursive: true });
 cpSync(join(root, "public"), output, { recursive: true });
 cpSync(join(root, "app.js"), join(output, "app.js"));
 
@@ -28,6 +32,7 @@ for (const route of routes) {
     .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${canonical}" />`)
     .replace('window.__TA_FILE_ASSET_ROOT__ = ".";', `window.__TA_FILE_ASSET_ROOT__ = "${fileAssetRoot}";`)
     .replace('window.__TA_HTTP_ASSET_ROOT__ = "";', `window.__TA_HTTP_ASSET_ROOT__ = "${publicBasePath}";`)
+    .replace('window.__TA_SANITY_QUERY_URL__ = "";', `window.__TA_SANITY_QUERY_URL__ = ${JSON.stringify(sanityQueryUrl)};`)
     .replace('content="/og-image.svg"', `content="${publicBasePath}/og-image.svg"`)
     .replace('window.__TA_INITIAL_ROUTE__ = "/";', `window.__TA_INITIAL_ROUTE__ = "${route.path}";`);
   const target = route.path === "/" ? join(output, "index.html") : join(output, route.path.slice(1), "index.html");
@@ -37,6 +42,7 @@ for (const route of routes) {
 
 writeFileSync(join(output, "404.html"), shell
   .replace('window.__TA_HTTP_ASSET_ROOT__ = "";', `window.__TA_HTTP_ASSET_ROOT__ = "${publicBasePath}";`)
+  .replace('window.__TA_SANITY_QUERY_URL__ = "";', `window.__TA_SANITY_QUERY_URL__ = ${JSON.stringify(sanityQueryUrl)};`)
   .replace('content="/og-image.svg"', `content="${publicBasePath}/og-image.svg"`));
 writeFileSync(join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(({ path }) => `  <url><loc>https://targetalpha.ca${path === "/" ? "/" : path}</loc></url>`).join("\n")}\n</urlset>\n`);
 writeFileSync(join(output, "robots.txt"), "User-agent: *\nAllow: /\nSitemap: https://targetalpha.ca/sitemap.xml\n");

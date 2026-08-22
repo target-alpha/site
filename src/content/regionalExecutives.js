@@ -1,3 +1,5 @@
+import { cmsContent, mergeCmsObject, replaceTeamsFromCms } from "./cms.js";
+
 export const regionalOverview = {
   introduction: "Regional executives are highly motivated and high-achieving high school students across Canada that create and lead nationwide initiatives:",
   responsibilities: [
@@ -23,6 +25,8 @@ export const regionalOverview = {
     }
   ]
 };
+
+mergeCmsObject(regionalOverview, cmsContent.siteSettings?.regionalOverview);
 
 export const regionalTeams = {
   "2025-26": {
@@ -240,7 +244,7 @@ export const regionalTeams = {
         year: "2023-24",
         legacyPath: "/amanda-2024",
         image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/b48f5564-bfc1-4b72-8940-af03592fe4bf/Amanda.jpg",
-        bio: "Amanda is a grade 11 IB student at White Oaks Secondary School. She is thrilled to work at Target Alpha as one of the regional executives for the 2023–2024 academic year. As an international student who has a great love for leadership, business, feminism, and artistic performance, she is thrilled to link the exceptional financial literacy options Target Alpha offers to underrepresented communities across Canada. She enjoys playing the GuZheng, painting, reading, and helping in her free time. Amanda is eager to establish relationships with key figures in the sector, develop resources, and carry out initiatives."
+        bio: "Amanda is a grade 11 IB student at White Oaks Secondary School. She is thrilled to work at Target Alpha as one of the regional executives for the 2023-2024 academic year. As an international student who has a great love for leadership, business, feminism, and artistic performance, she is thrilled to link the exceptional financial literacy options Target Alpha offers to underrepresented communities across Canada. She enjoys playing the GuZheng, painting, reading, and helping in her free time. Amanda is eager to establish relationships with key figures in the sector, develop resources, and carry out initiatives."
       },
       {
         name: "Anushka Punukollu",
@@ -326,14 +330,16 @@ export const regionalTeams = {
   }
 };
 
-export const regionalTeamYears = ["2025-26", "2024-25", "2023-24"];
+replaceTeamsFromCms(regionalTeams, cmsContent.regionalTeams);
+
+export const regionalTeamYears = Object.keys(regionalTeams);
 
 export const regionalProfileRoutes = () => Object.values(regionalTeams)
   .flatMap((cohort) => cohort.members)
   .filter((member) => member.legacyPath)
   .map((member) => ({
     path: member.legacyPath,
-    title: `${member.name} — Target Alpha Canada`,
+    title: `${member.name} - Target Alpha Canada`,
     description: `${member.name}, ${member.role} at Target Alpha Canada.`,
     type: "profile",
     person: member

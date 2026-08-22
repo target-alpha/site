@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [sanity-content-update]
 
 permissions:
   contents: read
@@ -17,6 +19,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
+      SANITY_REQUIRED: ${{ vars.SANITY_PROJECT_ID != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,6 +30,14 @@ jobs:
           node-version: 20
       - run: npm run check
       - run: PUBLIC_BASE_PATH=/target-alpha-example npm run build
+      - if: ${{ vars.SANITY_PROJECT_ID != '' }}
+        run: npm ci --prefix studio
+      - if: ${{ vars.SANITY_PROJECT_ID != '' }}
+        env:
+          SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+          SANITY_STUDIO_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
+          SANITY_STUDIO_BASE_PATH: /target-alpha-example/studio
+        run: npm run studio:build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist

@@ -1,2 +1,7 @@
 node_modules/
+.env
 .DS_Store
+/dist/
+studio/.env
+studio/.sanity/
+studio/dist/

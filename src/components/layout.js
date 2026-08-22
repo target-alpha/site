@@ -30,7 +30,7 @@ export function Header() {
     </button>
     <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
       <div class="mobile-menu__inner">
-        <div class="mobile-menu__index">National navigation / ${site.founded}—present</div>
+        <div class="mobile-menu__index">National navigation / ${site.founded}-present</div>
         <nav aria-label="Mobile navigation">
           ${navigation.map((item) => navItem(item, true)).join("")}
         </nav>

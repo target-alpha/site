@@ -42,7 +42,7 @@ export function SponsorsPage() {
 }
 
 export function PartnersPage() {
-  return `${PageHero({ eyebrow: "2025–26", title: "Academic Partners", image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/032530cf-e468-4047-b4e8-77812ac67518/harb.png", imageAlt: "Target Alpha academic partners" })}
+  return `${PageHero({ eyebrow: "2025-26", title: "Academic Partners", image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/032530cf-e468-4047-b4e8-77812ac67518/harb.png", imageAlt: "Target Alpha academic partners" })}
     <section class="partners-list section-space">
       ${partners.map((partner, index) => `<article class="partner-feature">
         <div class="partner-feature__label"><span>${String(index + 1).padStart(2, "0")}</span><h2>${escapeHtml(partner.shortName)}</h2><p>${escapeHtml(partner.subheading)}</p></div>
@@ -71,7 +71,7 @@ export function SearchPage(query = "") {
   return `<section class="search-page section-space">
     <p class="eyebrow">Site index</p><h1>Search Target Alpha</h1>
     <form class="search-form" action="/search" method="get"><label for="site-search">Search pages, people, events, and resources</label><div><input id="site-search" type="search" name="q" value="${escapeHtml(query)}" placeholder="Type to search…" autocomplete="off" /><button type="submit">Search</button></div></form>
-    <div class="search-results" aria-live="polite">${normalized ? results.length ? results.map((route) => `<a href="${route.path}" data-route-link><span>${escapeHtml(route.type)}</span><h2>${escapeHtml(route.title.replace(" — Target Alpha Canada", ""))}</h2><p>${escapeHtml(route.description)}</p><i aria-hidden="true">↗</i></a>`).join("") : `<p>No matching pages. Try a person’s name, an event acronym, or “chapter”.</p>` : `<p>Search the complete site directory.</p>`}</div>
+    <div class="search-results" aria-live="polite">${normalized ? results.length ? results.map((route) => `<a href="${route.path}" data-route-link><span>${escapeHtml(route.type)}</span><h2>${escapeHtml(route.title.replace(" - Target Alpha Canada", ""))}</h2><p>${escapeHtml(route.description)}</p><i aria-hidden="true">↗</i></a>`).join("") : `<p>No matching pages. Try a person’s name, an event acronym, or “chapter”.</p>` : `<p>Search the complete site directory.</p>`}</div>
   </section>`;
 }
 

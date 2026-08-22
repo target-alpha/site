@@ -41,7 +41,7 @@ export function ChapterRegistrationPage() {
       <div class="chapter-steps__list">${chapterContent.steps.map((step, index) => `<details${index === 0 ? " open" : ""}><summary><span>Step ${index + 1}</span><i aria-hidden="true">+</i></summary><div>${paragraphs(step)}</div></details>`).join("")}</div>
     </section>
     <section class="chapter-testimonials section-space">
-      ${SectionHeading({ eyebrow: "Chapter presidents / 2024–25", title: "Hear from our chapter presidents" })}
+      ${SectionHeading({ eyebrow: "Chapter presidents / 2024-25", title: "Hear from our chapter presidents" })}
       ${chapterContent.testimonials.map((item, index) => `<article class="chapter-quote chapter-quote--${index + 1}"><figure>${responsiveImage({ src: item.image, alt: item.name })}</figure><div><blockquote>${escapeHtml(item.quote)}</blockquote><p><strong>${escapeHtml(item.name)}</strong>, ${escapeHtml(item.role)}</p></div></article>`).join("")}
     </section>
     <section class="final-cta"><h2>Why wait? Register your chapter now!</h2>${ArrowLink("Register", chapterContent.links.registration, "button-link button-link--light")}</section>`;

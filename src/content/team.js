@@ -1,3 +1,5 @@
+import { cmsContent, replaceTeamsFromCms } from "./cms.js";
+
 export const nationalTeams = {
   "2025-26": {
     year: "2025-26",
@@ -5,13 +7,13 @@ export const nationalTeams = {
     members: [
       {
         name: "Shivam Bhatt",
-        role: "Chief Executive Officer & President",
+        role: "Chief Executive Officer (CEO) & President",
         profileRole: "Chief Executive Officer (CEO) & President",
         department: "National",
-        year: "2025-26",
-        legacyPath: "/shivam-bhatt-25-26",
+        year: "2026-27",
+        legacyPath: "/shivam-bhatt-26-27",
         image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/100ee8d7-e8af-4493-a22e-7dee40377143/Final+headshot.jpg?format=1000w",
-        bio: "Shivam Bhatt is a Grade 12 IB student at Turner Fenton Secondary School and the Chief Executive Officer & President of Target Alpha Canada. Passionate about advancing financial literacy among youth, he is committed to ensuring students nationwide have equitable access to quality financial education. Under his leadership, Target Alpha Canada works to expand its reach and empower students with the knowledge and skills to make informed decisions. Through his work in education, community initiatives, and non-profit leadership, Shivam strives to make financial knowledge both accessible and actionable, driving greater financial inclusion."
+        bio: "Shivam Bhatt is a Grade 12 IB student at Turner Fenton Secondary School and the Chief Executive Officer (CEO) & President of Target Alpha Canada. Passionate about advancing financial literacy among youth, he is committed to ensuring students nationwide have equitable access to quality financial education. Under his leadership, Target Alpha Canada works to expand its reach and empower students with the knowledge and skills to make informed decisions. Through his work in education, community initiatives, and non-profit leadership, Shivam strives to make financial knowledge both accessible and actionable, driving greater financial inclusion."
       },
       {
         name: "Avika Dharmawat",
@@ -475,7 +477,7 @@ export const nationalTeams = {
         year: "2022-23",
         legacyPath: "/owen",
         image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/201e4676-18c4-433e-8791-ecf212bf475a/OwenUpdated+1.png",
-        bio: "Owen, a senior at Burnaby North Secondary, is pleased to be contributing to this valuable opportunity for the business leaders of the future. After serving on the Regional Executives program the previous school year, he is more than excited to contribute as a Director of Operations for Target Alpha 2022–2023. Owen looks forward to creating fun and educational events to allow students to enter the non-spectator sport that is business and challenges all competitors to develop their business literacy in this ever-changing world."
+        bio: "Owen, a senior at Burnaby North Secondary, is pleased to be contributing to this valuable opportunity for the business leaders of the future. After serving on the Regional Executives program the previous school year, he is more than excited to contribute as a Director of Operations for Target Alpha 2022-2023. Owen looks forward to creating fun and educational events to allow students to enter the non-spectator sport that is business and challenges all competitors to develop their business literacy in this ever-changing world."
       },
       {
         name: "Jessie Jin",
@@ -490,14 +492,16 @@ export const nationalTeams = {
   }
 };
 
-export const nationalTeamYears = ["2025-26", "2024-25", "2023-24", "2022-23"];
+replaceTeamsFromCms(nationalTeams, cmsContent.nationalTeams);
+
+export const nationalTeamYears = Object.keys(nationalTeams);
 
 export const nationalProfileRoutes = () => Object.values(nationalTeams)
   .flatMap((cohort) => cohort.members)
   .filter((member) => member.legacyPath)
   .map((member) => ({
     path: member.legacyPath,
-    title: `${member.name} — Target Alpha Canada`,
+    title: `${member.name} - Target Alpha Canada`,
     description: `${member.name}, ${member.profileRole || member.role} at Target Alpha Canada.`,
     type: "profile",
     person: member

@@ -1,13 +1,14 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { fetchSanityContent } from "./sanity.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const entry = resolve(root, "src/main.js");
 const output = resolve(root, "app.js");
 const importPattern = /^import\s+[\s\S]*?\s+from\s+["']([^"']+)["'];\s*$/gm;
 
-export function bundle() {
+export async function bundle(content) {
   const visited = new Set();
   const modules = [];
 
@@ -29,12 +30,13 @@ export function bundle() {
   }
 
   visit(entry);
-  const banner = `/* Target Alpha Canada — generated browser bundle. Edit src/, then run npm run build. */\n(() => {\n"use strict";\n`;
+  const cmsContent = content || await fetchSanityContent();
+  const banner = `/* Target Alpha Canada - generated browser bundle. Edit content in Sanity or src/, then build. */\n(() => {\n"use strict";\nglobalThis.__TA_CMS_CONTENT__ ||= ${JSON.stringify(cmsContent)};\n`;
   writeFileSync(output, `${banner}${modules.join("\n")}\n})();\n`);
   return output;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  bundle();
+  await bundle();
   console.log("Bundled app.js");
 }
