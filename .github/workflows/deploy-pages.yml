@@ -36,7 +36,7 @@ jobs:
         env:
           SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
           SANITY_STUDIO_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
-          SANITY_STUDIO_BASE_PATH: /target-alpha-example/studio
+          SANITY_STUDIO_BASEPATH: /target-alpha-example/studio
         run: npm run studio:build
       - uses: actions/upload-pages-artifact@v3
         with:

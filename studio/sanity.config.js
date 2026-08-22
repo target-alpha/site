@@ -12,7 +12,7 @@ export default defineConfig({
   title: "Target Alpha Canada",
   projectId,
   dataset: process.env.SANITY_STUDIO_DATASET || "production",
-  basePath: process.env.SANITY_STUDIO_BASE_PATH || "/studio",
+  basePath: process.env.SANITY_STUDIO_BASEPATH || "/studio",
   plugins: [structureTool(), visionTool()],
   schema: { types: schemaTypes }
 });
