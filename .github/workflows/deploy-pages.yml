@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
       - run: npm run check
       - run: PUBLIC_BASE_PATH=/target-alpha-example npm run build
       - if: ${{ vars.SANITY_PROJECT_ID != '' }}
