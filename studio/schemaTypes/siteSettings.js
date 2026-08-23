@@ -34,7 +34,13 @@ export const siteSettings = defineType({
         defineField({ name: "newsletter", title: "Newsletter integration", type: "object", fields: [
           defineField({ name: "action", title: "Form action", type: "url" }),
           defineField({ name: "formId", title: "Form ID", type: "string" }),
-          defineField({ name: "collectionId", title: "Collection ID", type: "string" })
+          defineField({ name: "collectionId", title: "Collection ID", type: "string" }),
+          defineField({ name: "eyebrow", title: "Small label", type: "string" }),
+          defineField({ name: "title", title: "Heading", type: "string" }),
+          defineField({ name: "note", title: "Form note", type: "string" })
+        ] }),
+        defineField({ name: "footer", title: "Footer", type: "object", fields: [
+          defineField({ name: "tagline", title: "Tagline", type: "string" })
         ] }),
         defineField({ name: "contact", title: "Contact emails", type: "object", fields: [
           defineField({ name: "chapters", title: "Chapters", type: "email" }),
@@ -46,7 +52,31 @@ export const siteSettings = defineType({
       ]
     }),
     defineField({
-      name: "homeContent", title: "Homepage copy", type: "object", fields: [
+      name: "navigation",
+      title: "Site navigation",
+      type: "array",
+      description: "Drag items to reorder the desktop, mobile, and footer navigation.",
+      of: [defineArrayMember({
+        name: "navigationItem",
+        title: "Navigation item",
+        type: "object",
+        fields: [
+          defineField({ name: "label", title: "Label", type: "string", validation: (rule) => rule.required() }),
+          defineField({ name: "href", title: "Site path", type: "string", description: "Leave blank when this item contains a submenu." }),
+          defineField({
+            name: "children", title: "Submenu items", type: "array",
+            of: [defineArrayMember({ type: "object", fields: [
+              defineField({ name: "label", title: "Label", type: "string", validation: (rule) => rule.required() }),
+              defineField({ name: "href", title: "Site path", type: "string", validation: (rule) => rule.required().custom((value) => value?.startsWith("/") || "Use a site path beginning with /." ) })
+            ], preview: { select: { title: "label", subtitle: "href" } } })]
+          })
+        ],
+        validation: (rule) => rule.custom((value) => value?.href || value?.children?.length ? true : "Add a site path or at least one submenu item."),
+        preview: { select: { title: "label", subtitle: "href", children: "children" }, prepare: ({ title, subtitle, children }) => ({ title, subtitle: subtitle || `${children?.length || 0} submenu items` }) }
+      })]
+    }),
+    defineField({
+      name: "homeContent", title: "Legacy homepage copy", type: "object", hidden: true, fields: [
         defineField({ name: "hero", title: "Hero statement", type: "text", rows: 3 }),
         defineField({ name: "about", title: "About summary", type: "text", rows: 5 }),
         defineField({ name: "events", title: "Events summary", type: "text", rows: 5 }),

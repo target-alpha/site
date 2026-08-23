@@ -11,6 +11,8 @@ import {
   chapterContent,
   chapterResources,
   homeContent,
+  homePageContent,
+  navigation,
   partners,
   site,
   sponsorLogos
@@ -65,6 +67,12 @@ const siteSettings = {
   _id: "siteSettings",
   _type: "siteSettings",
   site,
+  navigation: navigation.map((item, index) => ({
+    _type: "navigationItem",
+    _key: keyFor(item.label, index),
+    ...item,
+    children: item.children?.map((child, childIndex) => ({ _type: "object", _key: keyFor(child.label, childIndex), ...child }))
+  })),
   homeContent,
   aboutContent: { ...aboutContent, sections: keyedObjects(aboutContent.sections) },
   regionalOverview: { ...regionalOverview, testimonials: keyedTestimonials(regionalOverview.testimonials) },
@@ -73,8 +81,19 @@ const siteSettings = {
   academiaContent: { ...academiaContent, resources: keyedObjects(academiaContent.resources) }
 };
 
+const homePage = {
+  _id: "homePage",
+  _type: "homePage",
+  hero: {
+    ...homePageContent.hero,
+    images: homePageContent.hero.images.map(({ src, ...image }) => ({ _type: "homeHeroImage", ...image, imageUrl: src }))
+  },
+  sections: homePageContent.sections.map(({ visible, ...section }) => section)
+};
+
 const documents = [
   siteSettings,
+  homePage,
   ...Object.values(nationalTeams).map((cohort, index) => asTeam("national", cohort, index)),
   ...Object.values(regionalTeams).map((cohort, index) => asTeam("regional", cohort, index)),
   ...asCollection("event", events, "slug", (entry) => ({ ...asImageUrl(entry), slug: { _type: "slug", current: entry.slug } })),

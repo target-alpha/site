@@ -11,6 +11,16 @@ const dataset = process.env.SANITY_DATASET?.trim() || "production";
 const apiVersion = process.env.SANITY_API_VERSION?.trim() || "2025-02-19";
 
 const query = `{
+  "homePage": *[_type == "homePage" && _id == "homePage"][0]{
+    "hero": hero{
+      statement, ctaLabel, ctaHref,
+      "images": images[]{_key, imageAlt, "src": coalesce(image.asset->url, imageUrl)}
+    },
+    "sections": sections[]{
+      ...,
+      "image": coalesce(image.asset->url, imageUrl)
+    }
+  },
   "nationalTeams": *[_type == "team" && teamType == "national"] | order(sortOrder asc) {
     year, path,
     "members": members[]{name, role, profileRole, department, "year": ^.year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
@@ -38,6 +48,7 @@ const query = `{
   },
   "siteSettings": *[_type == "siteSettings"][0]{
     site,
+    navigation,
     homeContent,
     aboutContent,
     "regionalOverview": regionalOverview{

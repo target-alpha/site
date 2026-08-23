@@ -9,7 +9,8 @@
     "check": "node scripts/check.mjs",
     "studio": "npm --prefix studio run dev",
     "studio:build": "npm --prefix studio run build",
-    "sanity:import": "node scripts/import-sanity.mjs"
+    "sanity:import": "node scripts/import-sanity.mjs",
+    "sanity:migrate-homepage": "node scripts/migrate-homepage.mjs"
   },
   "engines": {
     "node": ">=20.12"

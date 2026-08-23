@@ -12,7 +12,13 @@ export const site = {
   newsletter: {
     action: "https://targetalpha.ca/",
     formId: "657d1bfe5d532e546d281b97",
-    collectionId: "62e9d968d83d5964e51b7656"
+    collectionId: "62e9d968d83d5964e51b7656",
+    eyebrow: "National briefing",
+    title: "Stay up to date with all our latest updates.",
+    note: "Subscription is completed through Target Alpha’s existing newsletter service."
+  },
+  footer: {
+    tagline: "Student-led. Federally incorporated. Canada-wide."
   },
   contact: {
     chapters: "ray.tan@targetalpha.ca",
@@ -64,6 +70,75 @@ export const homeContent = {
     linkLabel: "View event",
     href: "/events#spc"
   }
+};
+
+export const homePageContent = {
+  hero: {
+    statement: homeContent.hero,
+    ctaLabel: "Get Involved",
+    ctaHref: "/events",
+    images: [
+      {
+        _key: "national-event",
+        src: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/f4fdb13b-650d-400a-9679-e5b95b0d90ec/IMG_8598.JPG?format=1500w",
+        imageAlt: "Target Alpha students at a national event"
+      },
+      {
+        _key: "student-collaboration",
+        src: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/dbd1d3a9-31a0-4fd0-bd2b-3060314c117f/IMG_8605.JPG?format=1500w",
+        imageAlt: "Students collaborating at a Target Alpha event"
+      },
+      {
+        _key: "event-participants",
+        src: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/a064c448-5013-4787-ad9f-ca81e802e030/DSC_0609.jpg?format=1500w",
+        imageAlt: "Target Alpha event participants"
+      }
+    ]
+  },
+  sections: [
+    {
+      _key: "event-announcement",
+      _type: "homeEventAnnouncement",
+      enabled: homeContent.eventAnnouncement.visible,
+      ...homeContent.eventAnnouncement
+    },
+    { _key: "statistics", _type: "homeStatsSection", enabled: true, summary: homeContent.about },
+    {
+      _key: "about",
+      _type: "homeAboutSection",
+      enabled: true,
+      eyebrow: "About us",
+      title: "Built by students. Established nationwide.",
+      body: homeContent.about,
+      linkLabel: "About Target Alpha",
+      href: "/targetalpha",
+      yearLabel: "Founded",
+      yearValue: "2013"
+    },
+    {
+      _key: "events",
+      _type: "homeEventsSection",
+      enabled: true,
+      eyebrow: "Our events",
+      title: "Three formats. One national stage.",
+      body: homeContent.events,
+      linkLabel: "Explore every event",
+      href: "/events"
+    },
+    {
+      _key: "chapter",
+      _type: "homeChapterSection",
+      enabled: true,
+      eyebrow: "Start a chapter",
+      stamp: "75+",
+      title: "Lead financial literacy at your school or in your community.",
+      body: homeContent.chapter,
+      linkLabel: "Take Action",
+      href: "/chapter-registration",
+      imageUrl: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/f4fdb13b-650d-400a-9679-e5b95b0d90ec/IMG_8598.JPG?format=1500w",
+      imageAlt: "Target Alpha chapter members"
+    }
+  ]
 };
 
 export const aboutContent = {
@@ -186,11 +261,30 @@ export const sponsorLogos = [
 const settings = cmsContent.siteSettings;
 if (settings) {
   mergeCmsObject(site, settings.site);
+  replaceFromCms(navigation, settings.navigation);
   mergeCmsObject(homeContent, settings.homeContent);
   mergeCmsObject(aboutContent, settings.aboutContent);
   mergeCmsObject(chapterContent, settings.chapterContent);
   mergeCmsObject(academiaContent, settings.academiaContent);
   replaceFromCms(chapterResources, settings.chapterResources);
+}
+if (cmsContent.homePage) {
+  mergeCmsObject(homePageContent.hero, cmsContent.homePage.hero);
+  if (Array.isArray(cmsContent.homePage.sections)) {
+    homePageContent.sections.splice(0, homePageContent.sections.length, ...cmsContent.homePage.sections);
+  }
+} else if (settings?.homeContent) {
+  homePageContent.hero.statement = homeContent.hero;
+  const announcement = homePageContent.sections.find(({ _type }) => _type === "homeEventAnnouncement");
+  if (announcement) Object.assign(announcement, homeContent.eventAnnouncement, { enabled: homeContent.eventAnnouncement.visible });
+  const statistics = homePageContent.sections.find(({ _type }) => _type === "homeStatsSection");
+  if (statistics) statistics.summary = homeContent.about;
+  const about = homePageContent.sections.find(({ _type }) => _type === "homeAboutSection");
+  if (about) about.body = homeContent.about;
+  const eventOverview = homePageContent.sections.find(({ _type }) => _type === "homeEventsSection");
+  if (eventOverview) eventOverview.body = homeContent.events;
+  const chapter = homePageContent.sections.find(({ _type }) => _type === "homeChapterSection");
+  if (chapter) chapter.body = homeContent.chapter;
 }
 replaceFromCms(partners, cmsContent.partners);
 replaceFromCms(sponsorLogos, cmsContent.sponsorLogos);

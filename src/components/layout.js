@@ -57,8 +57,8 @@ export function IndexTape() {
 export function Newsletter() {
   return `<section class="newsletter" aria-labelledby="newsletter-title">
     <div>
-      <p class="eyebrow">National briefing</p>
-      <h2 id="newsletter-title">Stay up to date with all our latest updates.</h2>
+      <p class="eyebrow">${escapeHtml(site.newsletter.eyebrow)}</p>
+      <h2 id="newsletter-title">${escapeHtml(site.newsletter.title)}</h2>
     </div>
     <form class="newsletter__form" method="post" action="${site.newsletter.action}" target="_blank" data-form-id="${site.newsletter.formId}">
       <input type="hidden" name="formId" value="${site.newsletter.formId}" />
@@ -68,7 +68,7 @@ export function Newsletter() {
         <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Email Address" required />
         <button type="submit">Subscribe <span aria-hidden="true">↗</span></button>
       </div>
-      <p class="form-note">Subscription is completed through Target Alpha’s existing newsletter service.</p>
+      <p class="form-note">${escapeHtml(site.newsletter.note)}</p>
     </form>
   </section>`;
 }
@@ -90,7 +90,7 @@ export function Footer() {
         <a ${linkAttrs(site.social.linkedin)}>LinkedIn ↗</a>
       </div>
     </div>
-    <div class="footer-legal"><span>Student-led. Federally incorporated. Canada-wide.</span><span>© ${new Date().getFullYear()} Target Alpha Canada</span></div>
+    <div class="footer-legal"><span>${escapeHtml(site.footer.tagline)}</span><span>© ${new Date().getFullYear()} Target Alpha Canada</span></div>
   </footer>`;
 }
 

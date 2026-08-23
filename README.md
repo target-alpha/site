@@ -44,3 +44,4 @@ Pushing source changes to `main` runs the same validation and build automaticall
 
 For annual content-editing instructions, see [MAINTENANCE.md](./MAINTENANCE.md).
 For CMS setup and migration, see [SANITY.md](./SANITY.md).
+For the no-code team editing workflow, see [CMS-EDITOR-GUIDE.md](./CMS-EDITOR-GUIDE.md).

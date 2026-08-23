@@ -6,7 +6,7 @@ import { regionalTeams, regionalTeamYears } from "../src/content/regionalExecuti
 import { judges } from "../src/content/judges.js";
 import { events } from "../src/content/events.js";
 import { news } from "../src/content/news.js";
-import { homeContent, partners, sponsorLogos } from "../src/content/site.js";
+import { homeContent, homePageContent, navigation, partners, sponsorLogos } from "../src/content/site.js";
 
 const issues = [];
 const allLinks = [
@@ -14,7 +14,10 @@ const allLinks = [
   ...news.flatMap((item) => [item.articleUrl, item.videoUrl]),
   ...partners.map((item) => item.href),
   ...sponsorLogos.map((item) => item.href),
-  homeContent.eventAnnouncement?.visible ? homeContent.eventAnnouncement.href : ""
+  homeContent.eventAnnouncement?.visible ? homeContent.eventAnnouncement.href : "",
+  homePageContent.hero.ctaHref,
+  ...homePageContent.sections.map((section) => section.href),
+  ...navigation.flatMap((item) => item.children?.map((child) => child.href) || [item.href])
 ].filter(Boolean);
 
 const requireFields = (label, entries, fields) => {
@@ -43,6 +46,17 @@ if (!nationalTeams[nationalTeamYears[0]]?.members.length) issues.push("Current n
 if (!regionalTeams[regionalTeamYears[0]]?.members.length) issues.push("Current regional team is empty");
 if (!judges.length) issues.push("Judges list is empty");
 if (!existsSync("index.html") || !existsSync("src/main.js")) issues.push("Application shell is missing");
+if (!homePageContent.hero?.statement) issues.push("Homepage hero statement is missing");
+const homepageSectionTypes = new Set(["homeEventAnnouncement", "homeStatsSection", "homeAboutSection", "homeEventsSection", "homeChapterSection", "homeFlexibleSection"]);
+const homepageSectionKeys = homePageContent.sections.map((section) => section._key);
+if (new Set(homepageSectionKeys).size !== homepageSectionKeys.length) issues.push("Duplicate homepage section keys");
+homePageContent.sections.forEach((section, index) => {
+  if (!homepageSectionTypes.has(section._type)) issues.push(`Homepage section ${index + 1} has an unsupported type`);
+  if (!section._key) issues.push(`Homepage section ${index + 1} is missing _key`);
+  if (section.enabled !== false && ["homeEventAnnouncement", "homeAboutSection", "homeEventsSection", "homeChapterSection", "homeFlexibleSection"].includes(section._type) && !section.title) {
+    issues.push(`Visible homepage section ${index + 1} is missing title`);
+  }
+});
 if (homeContent.eventAnnouncement?.visible) {
   requireFields("Homepage event announcement", [homeContent.eventAnnouncement], ["eventType", "title", "href"]);
 }

@@ -42,6 +42,12 @@ Open the hosted Studio, select an item, make the change, and press **Publish**. 
 
 The GitHub build also embeds the latest CMS snapshot as a fallback. Optionally, configure a Sanity webhook that sends a GitHub `repository_dispatch` event named `sanity-content-update` after publishing. The Pages workflow already accepts that event and will refresh the embedded snapshot.
 
+## Homepage page builder
+
+The Studio includes a dedicated **Homepage** document. Editors can change the hero, drag sections to reorder them, hide sections without deleting content, and add structured or flexible sections.
+
+For the complete team workflow, see [CMS-EDITOR-GUIDE.md](./CMS-EDITOR-GUIDE.md).
+
 ## Local Studio development
 
 Copy `studio/.env.example` to `studio/.env`, fill in the project ID, then run:
