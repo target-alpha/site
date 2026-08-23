@@ -28,7 +28,6 @@ export const team = defineType({
           defineField({ name: "role", title: "Role", type: "string", validation: (rule) => rule.required() }),
           defineField({ name: "profileRole", title: "Full profile role", type: "string" }),
           defineField({ name: "department", title: "Department", type: "string" }),
-          defineField({ name: "year", title: "Member year", type: "string", validation: (rule) => rule.required() }),
           defineField({ name: "legacyPath", title: "Profile path", type: "string", description: "Keep existing profile paths unchanged to preserve links.", validation: (rule) => rule.regex(/^\/[a-z0-9-]+$/) }),
           ...imageFields,
           defineField({ name: "bio", title: "Biography", type: "text", rows: 8, validation: (rule) => rule.required() })

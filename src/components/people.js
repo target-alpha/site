@@ -1,4 +1,6 @@
 import { escapeHtml, paragraphs, responsiveImage } from "./html.js";
+import { nationalTeams, nationalTeamYears } from "../content/team.js";
+import { regionalTeams } from "../content/regionalExecutives.js";
 
 export function PersonCard(person, index = 0) {
   const inner = `<figure class="person-card__image">${responsiveImage({ src: person.image, alt: `${person.cardName || person.name}, ${person.role}` })}<span>${String(index + 1).padStart(2, "0")}</span></figure>
@@ -23,20 +25,13 @@ export function TeamDirectory({ members }) {
 }
 
 export function ProfileView(person) {
-  const teamPaths = {
-    "2025-26": "/team25-26",
-    "2024-25": "/team24-25-1",
-    "2023-24": "/team23-24",
-    "2022-23": "/team22-23"
-  };
-  const regionalPaths = {
-    "2025-26": "/regional-executives",
-    "2024-25": "/regional-executives-2025",
-    "2023-24": "/regional-executives-2024"
-  };
-  const backPath = person.role === "Regional Executive" ? regionalPaths[person.year] : teamPaths[person.year];
+  const isRegional = person.role === "Regional Executive";
+  const teams = isRegional ? regionalTeams : nationalTeams;
+  const cohort = Object.values(teams).find((team) => team.members.some((member) => member === person || member.legacyPath === person.legacyPath));
+  const backPath = cohort?.path || (isRegional ? "/regional-executives" : nationalTeams[nationalTeamYears[0]].path);
+  const displayYear = cohort?.year || person.year;
   return `<article class="profile-view">
-    <div class="profile-view__photo">${responsiveImage({ src: person.image, alt: `${person.name}, ${person.profileRole || person.role}`, eager: true })}<span>${escapeHtml(person.year)}</span></div>
+    <div class="profile-view__photo">${responsiveImage({ src: person.image, alt: `${person.name}, ${person.profileRole || person.role}`, eager: true })}<span>${escapeHtml(displayYear)}</span></div>
     <div class="profile-view__copy">
       <a class="back-link" href="${backPath}" data-route-link>← Back</a>
       <p class="eyebrow">${escapeHtml(person.profileRole || person.role)}</p>

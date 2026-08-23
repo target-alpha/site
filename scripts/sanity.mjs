@@ -13,11 +13,11 @@ const apiVersion = process.env.SANITY_API_VERSION?.trim() || "2025-02-19";
 const query = `{
   "nationalTeams": *[_type == "team" && teamType == "national"] | order(sortOrder asc) {
     year, path,
-    "members": members[]{name, role, profileRole, department, year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
+    "members": members[]{name, role, profileRole, department, "year": ^.year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
   },
   "regionalTeams": *[_type == "team" && teamType == "regional"] | order(sortOrder asc) {
     year, path,
-    "members": members[]{name, role, profileRole, department, year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
+    "members": members[]{name, role, profileRole, department, "year": ^.year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
   },
   "events": *[_type == "event"] | order(sortOrder asc) {
     "slug": slug.current, acronym, fullTitle, description, detailDescription, statistic, partner, date, registrationState,
