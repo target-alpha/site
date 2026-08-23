@@ -6,14 +6,15 @@ import { regionalTeams, regionalTeamYears } from "../src/content/regionalExecuti
 import { judges } from "../src/content/judges.js";
 import { events } from "../src/content/events.js";
 import { news } from "../src/content/news.js";
-import { partners, sponsorLogos } from "../src/content/site.js";
+import { homeContent, partners, sponsorLogos } from "../src/content/site.js";
 
 const issues = [];
 const allLinks = [
   ...events.flatMap((item) => [item.registrationUrl, item.resourceUrl]),
   ...news.flatMap((item) => [item.articleUrl, item.videoUrl]),
   ...partners.map((item) => item.href),
-  ...sponsorLogos.map((item) => item.href)
+  ...sponsorLogos.map((item) => item.href),
+  homeContent.eventAnnouncement?.visible ? homeContent.eventAnnouncement.href : ""
 ].filter(Boolean);
 
 const requireFields = (label, entries, fields) => {
@@ -42,6 +43,9 @@ if (!nationalTeams[nationalTeamYears[0]]?.members.length) issues.push("Current n
 if (!regionalTeams[regionalTeamYears[0]]?.members.length) issues.push("Current regional team is empty");
 if (!judges.length) issues.push("Judges list is empty");
 if (!existsSync("index.html") || !existsSync("src/main.js")) issues.push("Application shell is missing");
+if (homeContent.eventAnnouncement?.visible) {
+  requireFields("Homepage event announcement", [homeContent.eventAnnouncement], ["eventType", "title", "href"]);
+}
 
 requireFields("Route", routes, ["path", "type", "title", "description"]);
 requireFields("National team member", nationalMembers, ["name", "role", "year", "image"]);

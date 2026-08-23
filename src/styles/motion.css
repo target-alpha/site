@@ -239,6 +239,7 @@ body:not(.site-ready) .menu-toggle { animation-delay: 90ms; }
   .home-hero__thesis > *,
   .home-hero__image,
   .home-hero__caption,
+  .home-event-bulletin__live > span,
   .page-hero__rail,
   .page-hero__title h1,
   .page-hero__title p,

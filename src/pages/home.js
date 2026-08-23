@@ -10,6 +10,35 @@ const heroImages = [
   "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/a064c448-5013-4787-ad9f-ca81e802e030/DSC_0609.jpg?format=1500w"
 ];
 
+function EventAnnouncement() {
+  const announcement = homeContent.eventAnnouncement;
+  if (!announcement?.visible || !announcement.title || !announcement.href) return "";
+
+  const eventType = announcement.eventType || "Event";
+  const linkLabel = announcement.linkLabel || "View event";
+  const metaItems = [
+    ["Date", announcement.date],
+    ["Location", announcement.location]
+  ].filter(([, value]) => value);
+
+  return `<section class="home-event-bulletin" aria-labelledby="home-event-title">
+    <div class="home-event-bulletin__signal">
+      <div class="home-event-bulletin__live"><span aria-hidden="true"></span>Event bulletin</div>
+      <strong>${escapeHtml(eventType)}</strong>
+      ${announcement.status ? `<p>${escapeHtml(announcement.status)}</p>` : ""}
+    </div>
+    <div class="home-event-bulletin__content">
+      <p class="eyebrow">Event information</p>
+      <h2 id="home-event-title">${escapeHtml(announcement.title)}</h2>
+      ${announcement.details ? `<p>${escapeHtml(announcement.details)}</p>` : ""}
+    </div>
+    <div class="home-event-bulletin__meta">
+      ${metaItems.length ? `<dl>${metaItems.map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}</dl>` : ""}
+      ${ArrowLink(linkLabel, announcement.href, "button-link")}
+    </div>
+  </section>`;
+}
+
 export function HomePage() {
   return `<section class="home-hero">
     <div class="home-hero__masthead" aria-label="Target Alpha">
@@ -28,6 +57,7 @@ export function HomePage() {
       <span class="home-hero__caption">Financial literacy / real-time competition / nationwide chapters</span>
     </div>
   </section>
+  ${EventAnnouncement()}
   <section class="home-ledger" aria-label="Target Alpha at a glance">
     ${stats.map((stat) => `<div class="home-ledger__item"><strong>${escapeHtml(stat.value)}</strong><span>${escapeHtml(stat.label)}</span></div>`).join("")}
     <p>${escapeHtml(homeContent.about)}</p>

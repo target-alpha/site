@@ -50,7 +50,60 @@ export const siteSettings = defineType({
         defineField({ name: "hero", title: "Hero statement", type: "text", rows: 3 }),
         defineField({ name: "about", title: "About summary", type: "text", rows: 5 }),
         defineField({ name: "events", title: "Events summary", type: "text", rows: 5 }),
-        defineField({ name: "chapter", title: "Chapter callout", type: "text", rows: 3 })
+        defineField({ name: "chapter", title: "Chapter callout", type: "text", rows: 3 }),
+        defineField({
+          name: "eventAnnouncement",
+          title: "Event announcement",
+          type: "object",
+          description: "Publish a featured event bulletin directly below the homepage hero.",
+          initialValue: { visible: false, eventType: "Competition", status: "Registration open", linkLabel: "View event" },
+          fields: [
+            defineField({
+              name: "visible",
+              title: "Show on homepage",
+              type: "boolean",
+              description: "Turn this off to hide the entire section without deleting its content.",
+              initialValue: false
+            }),
+            defineField({
+              name: "eventType",
+              title: "Event type",
+              type: "string",
+              options: {
+                list: ["Competition", "Conference", "Workshop", "Registration", "Deadline", "Announcement"],
+                layout: "dropdown"
+              },
+              validation: (rule) => rule.required()
+            }),
+            defineField({
+              name: "status",
+              title: "Status label",
+              type: "string",
+              description: "For example: Registration open, Happening soon, or Applications close Friday."
+            }),
+            defineField({
+              name: "title",
+              title: "Event title",
+              type: "string",
+              validation: (rule) => rule.custom((value, context) => context.parent?.visible && !value ? "An event title is required when the announcement is visible." : true)
+            }),
+            defineField({ name: "details", title: "Short description", type: "text", rows: 3 }),
+            defineField({ name: "date", title: "Date or timing", type: "string", description: "For example: October 18, 2026 or Registration closes September 30." }),
+            defineField({ name: "location", title: "Location or format", type: "string", description: "For example: Toronto, Canada or Virtual." }),
+            defineField({ name: "linkLabel", title: "Link label", type: "string", initialValue: "View event" }),
+            defineField({
+              name: "href",
+              title: "Event link",
+              type: "string",
+              description: "Use a site path such as /events#spc or a complete https:// link.",
+              validation: (rule) => rule.custom((value, context) => {
+                if (context.parent?.visible && !value) return "An event link is required when the announcement is visible.";
+                if (!value || value.startsWith("/") || /^https:\/\//i.test(value)) return true;
+                return "Use a site path beginning with / or a complete https:// link.";
+              })
+            })
+          ]
+        })
       ]
     }),
     defineField({

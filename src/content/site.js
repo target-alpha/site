@@ -52,7 +52,18 @@ export const homeContent = {
   hero: "Canada’s largest student-led organization working towards promoting financial literacy among youth.",
   about: "Since our inception in 2013, Target Alpha has grown to become Canada’s leading student financial literacy organization. We aim to engage youth in financial literacy by hosting conferences, competitions, and providing educational resources to chapters across the country.",
   events: "Target Alpha hosts three major competitions each year, in in-person, hybrid, and virtual formats. These events bring together students nationwide to showcase skills, collaborate, and solve engaging, dynamic challenges.",
-  chapter: "Want to bring Target Alpha to your school or community? Chapter registration for the 2025-26 school year is now open!"
+  chapter: "Want to bring Target Alpha to your school or community? Chapter registration for the 2025-26 school year is now open!",
+  eventAnnouncement: {
+    visible: false,
+    eventType: "Competition",
+    status: "Registration open",
+    title: "Stock Pitch Competition",
+    details: "Join students from across Canada for Target Alpha's next national event.",
+    date: "",
+    location: "",
+    linkLabel: "View event",
+    href: "/events#spc"
+  }
 };
 
 export const aboutContent = {
