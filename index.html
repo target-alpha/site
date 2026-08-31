@@ -20,6 +20,9 @@
     <script>
       window.__TA_FILE_ASSET_ROOT__ = ".";
       window.__TA_HTTP_ASSET_ROOT__ = "";
+      if (location.hostname === "target-alpha.github.io" && location.pathname.startsWith("/site")) {
+        window.__TA_HTTP_ASSET_ROOT__ = "/site";
+      }
       window.__TA_INITIAL_ROUTE__ = "/";
       window.__TA_SANITY_QUERY_URL__ = "";
       window.__TA_ASSET_VERSION__ = "2026.08.22-page-builder-1";
