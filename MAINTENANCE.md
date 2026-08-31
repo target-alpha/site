@@ -12,7 +12,7 @@ After the CMS setup in `SANITY.md` is complete, team members should edit and pub
 
 1. Open the repository on GitHub and navigate to the content file you need (for example, `src/content/team.js`).
 2. Select the pencil icon (**Edit this file**), make the change, and use **Commit changes** to commit it directly to `main`.
-3. GitHub Actions validates, builds, and publishes the site automatically. The update is normally live within a couple of minutes at https://sqhil-a.github.io/target-alpha-example/.
+3. GitHub Actions validates, builds, and publishes the site automatically. The update is normally live within a couple of minutes at https://target-alpha.github.io/site/.
 
 There is no need to run `npm`, edit `app.js`, or edit anything in `dist/` when using GitHub's browser editor. If the commit reports a failed check, open the linked Actions run; it will identify the content field that needs correcting.
 

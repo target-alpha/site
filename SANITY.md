@@ -17,9 +17,9 @@ In the GitHub repository, open **Settings > Secrets and variables > Actions > Va
 
 The next GitHub Pages build will read published Sanity content and publish the Studio at:
 
-https://sqhil-a.github.io/target-alpha-example/studio/
+https://target-alpha.github.io/site/studio/
 
-In Sanity project settings, add `https://sqhil-a.github.io` as an allowed CORS origin with credentials enabled. This lets authorized editors sign into the hosted Studio.
+In Sanity project settings, add `https://target-alpha.github.io` as an allowed CORS origin with credentials enabled. This lets authorized editors sign into the hosted Studio.
 
 ## 3. Import the current website once
 

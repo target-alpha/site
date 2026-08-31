@@ -2,7 +2,7 @@
 
 Team members can update the live website from the hosted Sanity Studio without editing GitHub files or running local commands.
 
-Studio: https://sqhil-a.github.io/target-alpha-example/studio/
+Studio: https://target-alpha.github.io/site/studio/
 
 ## Edit the homepage
 
