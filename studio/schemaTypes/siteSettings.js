@@ -22,6 +22,28 @@ export const siteSettings = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "sponsorsContent", title: "Sponsors page", type: "object",
+      description: "Edit the /sponsors page here. For individual logos and relationship descriptions, open Sponsors — logos and relationships in the sidebar. Blank optional fields use the existing page defaults.",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({ name: "eyebrow", title: "Small label above heading", type: "string", description: "Default: Support" }),
+        defineField({ name: "title", title: "Page heading", type: "string", description: "Default: Sponsors" }),
+        defineField({ name: "introduction", title: "Introduction", type: "text", rows: 5, description: "Explain how sponsors support Target Alpha. Leave blank to keep Past sponsors." }),
+        defineField({ name: "sections", title: "Additional information sections", type: "array",
+          description: "Add context about your sponsor relationships, support, or impact. Drag to reorder. These appear above the sponsor logos. Separate paragraphs with a blank line.",
+          of: [defineArrayMember({ name: "sponsorSection", title: "Information section", type: "object",
+            fields: [
+              defineField({ name: "enabled", title: "Show this section", type: "boolean", initialValue: true }),
+              defineField({ name: "title", title: "Heading", type: "string", validation: (rule) => rule.required() }),
+              defineField({ name: "body", title: "Text", type: "text", rows: 8, validation: (rule) => rule.required() })
+            ], preview: { select: { title: "title", subtitle: "body" } }
+          })]
+        }),
+        defineField({ name: "contactText", title: "Sponsorship inquiry text", type: "text", rows: 2, description: "Text before the email link. Default: For sponsorship inquiries, please contact" }),
+        defineField({ name: "contactEmail", title: "Sponsorship email", type: "email", description: "Leave blank to use Organization details → Contact emails → Partnerships." })
+      ]
+    }),
+    defineField({
       name: "site", title: "Organization details", type: "object", fields: [
         defineField({ name: "name", title: "Name", type: "string" }),
         defineField({ name: "shortName", title: "Short name", type: "string" }),

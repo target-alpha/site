@@ -1,4 +1,4 @@
-import { aboutContent, partners, site, sponsorLogos } from "../content/site.js";
+import { aboutContent, partners, site, sponsorLogos, sponsorsContent } from "../content/site.js";
 import { judges } from "../content/judges.js";
 import { news } from "../content/news.js";
 import { routes } from "../content/routes.js";
@@ -34,11 +34,19 @@ export function NewsPage() {
 }
 
 export function SponsorsPage() {
-  return `${PageHero({ eyebrow: "Support", title: "Sponsors", body: "Past sponsors" })}
-    <section class="sponsor-wall section-space" aria-label="Past sponsors">
-      ${sponsorLogos.map((sponsor, index) => `<a class="sponsor-card" ${linkAttrs(sponsor.href)} aria-label="Visit ${escapeHtml(sponsor.name)}"><span class="sponsor-card__index">${String(index + 1).padStart(2, "0")}</span>${responsiveImage({ src: sponsor.image, alt: sponsor.name })}<span class="sponsor-card__visit">Visit site <i aria-hidden="true">↗</i></span></a>`).join("")}
+  const email = sponsorsContent.contactEmail || site.contact.partnerships;
+  const sections = (sponsorsContent.sections || []).filter((section) => section.enabled !== false);
+  return `${PageHero({ eyebrow: sponsorsContent.eyebrow, title: sponsorsContent.title, body: sponsorsContent.introduction, modifier: "sponsors-hero" })}
+    ${sections.length ? `<section class="sponsor-stories section-space" aria-label="About our sponsorships">
+      ${sections.map((section) => `<article><h2>${escapeHtml(section.title || "")}</h2><div>${paragraphs(section.body || "")}</div></article>`).join("")}
+    </section>` : ""}
+    <section class="sponsor-wall section-space" aria-label="Sponsors">
+      ${sponsorLogos.map((sponsor, index) => `<article class="sponsor-entry">
+        <a class="sponsor-card" ${linkAttrs(sponsor.href)} aria-label="Visit ${escapeHtml(sponsor.name)}"><span class="sponsor-card__index">${String(index + 1).padStart(2, "0")}</span>${sponsor.image ? responsiveImage({ src: sponsor.image, alt: sponsor.name }) : `<span>${escapeHtml(sponsor.name)}</span>`}<span class="sponsor-card__visit">Visit site <i aria-hidden="true">↗</i></span></a>
+        ${sponsor.relationship ? `<div class="sponsor-entry__copy"><h2>${escapeHtml(sponsor.name)}</h2>${paragraphs(sponsor.relationship)}</div>` : ""}
+      </article>`).join("")}
     </section>
-    <p class="sponsor-contact">For sponsorship inquiries, please contact <a href="mailto:${site.contact.partnerships}">${site.contact.partnerships}</a></p>`;
+    <p class="sponsor-contact">${escapeHtml(sponsorsContent.contactText)} <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>`;
 }
 
 export function PartnersPage() {

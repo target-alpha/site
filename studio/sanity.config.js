@@ -11,8 +11,9 @@ const structure = (S) => S.list()
   .items([
     S.listItem().title("Homepage").child(S.document().schemaType("homePage").documentId("homePage")),
     S.listItem().title("Site settings and page copy").child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+    S.listItem().title("Sponsors — logos and relationships").child(S.documentTypeList("sponsor").title("Sponsors")),
     S.divider(),
-    ...S.documentTypeListItems().filter((item) => !singletonTypes.has(item.getId()))
+    ...S.documentTypeListItems().filter((item) => !singletonTypes.has(item.getId()) && item.getId() !== "sponsor")
   ]);
 
 if (!projectId) throw new Error("SANITY_STUDIO_PROJECT_ID is required to run or build the Studio.");

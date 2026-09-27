@@ -448,3 +448,21 @@
   .search-form > div { grid-template-columns: 1fr; }
   .search-form button { padding: 1rem 0; border-top: 1px solid var(--line); text-align: left; }
 }
+
+/* Sponsor copy stays readable alongside both logo-only and detailed entries. */
+.sponsors-hero .page-hero__title > p { white-space: pre-line; }
+.sponsor-entry { min-width: 0; border: 1px solid var(--line); background: var(--white); }
+.sponsor-entry .sponsor-card { border: 0; }
+.sponsor-entry__copy { padding: 0 1.5rem 1.75rem; overflow-wrap: anywhere; }
+.sponsor-entry__copy h2 { margin: 0 0 0.75rem; font-size: 1.25rem; }
+.sponsor-entry__copy p { color: var(--slate); line-height: 1.7; }
+.sponsor-entry__copy p + p { margin-top: 1rem; }
+.sponsor-stories { max-width: 100rem; margin: 0 auto; }
+.sponsor-stories article { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; padding: 2rem 0; border-top: 1px solid var(--line); }
+.sponsor-stories h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+.sponsor-stories p { max-width: 65ch; line-height: 1.8; white-space: pre-line; }
+.sponsor-stories p + p { margin-top: 1rem; }
+@media (max-width: 700px) {
+  .sponsor-stories article { grid-template-columns: 1fr; gap: 1rem; }
+  .sponsor-entry__copy { padding: 0 1rem 1.25rem; }
+}

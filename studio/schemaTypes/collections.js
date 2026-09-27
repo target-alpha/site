@@ -67,6 +67,8 @@ export const sponsor = defineType({
   fields: [
     defineField({ name: "name", title: "Name", type: "string", validation: (rule) => rule.required() }),
     defineField({ name: "href", title: "Website", type: "url", validation: (rule) => rule.required() }),
+    defineField({ name: "relationship", title: "Relationship with Target Alpha", type: "text", rows: 6,
+      description: "Optional public description below this sponsor’s logo: how they support Target Alpha, events supported, or the impact of the relationship. Separate paragraphs with a blank line." }),
     ...imageFields, sortOrder
   ],
   preview: { select: { title: "name", subtitle: "href", media: "image" } }

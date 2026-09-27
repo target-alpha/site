@@ -248,6 +248,15 @@ export const partners = [
   }
 ];
 
+export const sponsorsContent = {
+  eyebrow: "Support",
+  title: "Sponsors",
+  introduction: "Past sponsors",
+  sections: [],
+  contactText: "For sponsorship inquiries, please contact",
+  contactEmail: ""
+};
+
 export const sponsorLogos = [
   { name: "CPA Ontario", href: "https://www.cpaontario.ca/", image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/d55fb6fb-803f-4e9e-ac65-079b46f000b2/R.jpg" },
   { name: "Miyagi Labs", href: "https://miyagilabs.ai/", image: "https://images.squarespace-cdn.com/content/v1/62e9d92459966a0033b73d2d/6d2abc34-4402-4902-a217-358c4e4fa24c/miyagi+labs.png" },
@@ -261,6 +270,9 @@ export const sponsorLogos = [
 const settings = cmsContent.siteSettings;
 if (settings) {
   mergeCmsObject(site, settings.site);
+  for (const [key, value] of Object.entries(settings.sponsorsContent || {})) {
+    if (value != null && value !== "") sponsorsContent[key] = value;
+  }
   replaceFromCms(navigation, settings.navigation);
   mergeCmsObject(homeContent, settings.homeContent);
   mergeCmsObject(aboutContent, settings.aboutContent);

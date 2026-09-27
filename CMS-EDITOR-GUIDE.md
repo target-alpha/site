@@ -56,6 +56,21 @@ Open **Site settings and page copy** to manage:
 
 Navigation items can be reordered. An item can link directly to a site path or contain submenu items.
 
+## Edit the Sponsors page
+
+1. Open [Sanity Studio](https://target-alpha.github.io/site/studio/) and sign in with your invited team account.
+2. Select **Site settings and page copy**, then expand **Sponsors page** (the first field).
+3. Edit **Page heading** and **Introduction** for the opening text.
+4. Under **Additional information sections**, select **Add item** to add a heading and text about sponsor relationships, support, or impact. Separate paragraphs with a blank line. Drag sections to reorder; turn off **Show this section** to hide one.
+5. Optionally edit **Sponsorship inquiry text** and **Sponsorship email**. An empty email uses the shared Partnerships contact address.
+6. Select **Publish**.
+
+To describe a specific sponsor, select **Sponsors — logos and relationships** in the sidebar, open the sponsor, and fill in **Relationship with Target Alpha**. This text appears below that sponsor’s logo. You can also edit their name, website, logo, and **Display order** (lower numbers appear first). Publish each sponsor you change.
+
+Refresh [the Sponsors page](https://target-alpha.github.io/site/sponsors/) to see published changes. Saving a draft alone does not update the website. You do not need to edit GitHub or redeploy for these routine content changes.
+
+These controls require the website and Studio version containing this feature to be deployed once. Existing sponsor records need no migration or reimport; the new descriptions are optional. Do not rerun the initial import to enable them, because it replaces existing documents.
+
 ## Edit collections
 
 Use the collection entries in the sidebar for repeatable content:
@@ -65,7 +80,7 @@ Use the collection entries in the sidebar for repeatable content:
 - **Judge** - Judge profiles
 - **News item** - Media coverage
 - **Homepage statistic** - Homepage numbers
-- **Sponsor** - Sponsor logos and websites
+- **Sponsors — logos and relationships** - Sponsor logos, websites, and relationship descriptions
 - **Academic partner** - Partner profiles and websites
 
 Use the Display order field when a collection provides one. Lower numbers appear first.

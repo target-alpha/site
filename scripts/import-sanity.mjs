@@ -15,7 +15,8 @@ import {
   navigation,
   partners,
   site,
-  sponsorLogos
+  sponsorLogos,
+  sponsorsContent
 } from "../src/content/site.js";
 
 try {
@@ -74,6 +75,7 @@ const siteSettings = {
     children: item.children?.map((child, childIndex) => ({ _type: "object", _key: keyFor(child.label, childIndex), ...child }))
   })),
   homeContent,
+  sponsorsContent,
   aboutContent: { ...aboutContent, sections: keyedObjects(aboutContent.sections) },
   regionalOverview: { ...regionalOverview, testimonials: keyedTestimonials(regionalOverview.testimonials) },
   chapterContent: { ...chapterContent, testimonials: keyedTestimonials(chapterContent.testimonials) },

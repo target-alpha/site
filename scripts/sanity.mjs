@@ -44,13 +44,14 @@ const query = `{
     name, shortName, subheading, description, href, "image": coalesce(image.asset->url, imageUrl)
   },
   "sponsorLogos": *[_type == "sponsor"] | order(sortOrder asc) {
-    name, href, "image": coalesce(image.asset->url, imageUrl)
+    name, href, relationship, "image": coalesce(image.asset->url, imageUrl)
   },
   "siteSettings": *[_type == "siteSettings"][0]{
     site,
     navigation,
     homeContent,
     aboutContent,
+    sponsorsContent,
     "regionalOverview": regionalOverview{
       ...,
       "testimonials": testimonials[]{name, role, quote, "image": coalesce(image.asset->url, imageUrl)}
