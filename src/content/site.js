@@ -15,7 +15,7 @@ export const site = {
     collectionId: "62e9d968d83d5964e51b7656",
     eyebrow: "National briefing",
     title: "Stay up to date with all our latest updates.",
-    note: "Subscription is completed through Target Alpha’s existing newsletter service."
+    note: ""
   },
   footer: {
     tagline: "Student-led. Federally incorporated. Canada-wide."

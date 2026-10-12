@@ -85,6 +85,15 @@ Use the collection entries in the sidebar for repeatable content:
 
 Use the Display order field when a collection provides one. Lower numbers appear first.
 
+## Replace a team group photo
+
+1. Open **Team** and select the correct year, such as **2026-27 national**.
+2. Under **Team group photo**, upload the replacement image.
+3. Optionally edit **Group photo description** for accessibility.
+4. Select **Publish**, then refresh the team page.
+
+The photo belongs to that team year; replacing it does not affect archived teams or member headshots. No GitHub change or redeployment is needed for future replacements.
+
 ## Images
 
 Upload an image directly whenever possible. Add a clear image description for accessibility. Existing image URLs remain available for migrated content but new uploads are easier for future editors to manage.

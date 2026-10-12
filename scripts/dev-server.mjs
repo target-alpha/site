@@ -23,6 +23,7 @@ createServer((request, response) => {
   let filePath = join(root, safePath === "/" ? "index.html" : safePath);
 
   if (existsSync(filePath) && statSync(filePath).isDirectory()) filePath = join(filePath, "index.html");
+  if (!existsSync(filePath)) filePath = join(root, "public", safePath);
   if (!existsSync(filePath)) filePath = join(root, "index.html");
 
   response.writeHead(200, {

@@ -47,5 +47,3 @@ export const events = [
 ];
 
 replaceFromCms(events, cmsContent.events);
-
-export const eventSourceNote = "The source site states that Target Alpha has four major competitions, while its current events page details SPC, STC, and FPC. JSTC is also referenced by acronym on the Regional Executives page. No additional JSTC description or current link is published, so none has been invented here.";

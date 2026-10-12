@@ -22,11 +22,11 @@ const query = `{
     }
   },
   "nationalTeams": *[_type == "team" && teamType == "national"] | order(sortOrder asc) {
-    year, path,
+    year, path, groupPhotoAlt, "groupPhoto": groupPhoto.asset->url,
     "members": members[]{name, role, profileRole, department, "year": ^.year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
   },
   "regionalTeams": *[_type == "team" && teamType == "regional"] | order(sortOrder asc) {
-    year, path,
+    year, path, groupPhotoAlt, "groupPhoto": groupPhoto.asset->url,
     "members": members[]{name, role, profileRole, department, "year": ^.year, legacyPath, bio, "image": coalesce(image.asset->url, imageUrl)}
   },
   "events": *[_type == "event"] | order(sortOrder asc) {

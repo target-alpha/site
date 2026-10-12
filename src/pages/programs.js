@@ -1,5 +1,5 @@
 import { academiaContent, chapterContent, chapterResources, site } from "../content/site.js";
-import { eventSourceNote, events } from "../content/events.js";
+import { events } from "../content/events.js";
 import { EventFeature } from "../components/events.js";
 import { ArrowLink, PageHero, SectionHeading } from "../components/primitives.js";
 import { escapeHtml, paragraphs, responsiveImage } from "../components/html.js";
@@ -9,8 +9,7 @@ const eventsHero = "https://images.squarespace-cdn.com/content/v1/62e9d92459966a
 export function EventsPage() {
   return `${PageHero({ eyebrow: "Competitions", title: "Events", body: "Take the leap and compete in one of Target Alpha Canada’s four major competitions!", image: eventsHero, imageAlt: "Target Alpha competitions" })}
     <nav class="event-jump" aria-label="Competition navigation">${events.map((event) => `<a href="/events#${event.slug}" data-route-link>${event.acronym}<span>${event.fullTitle}</span></a>`).join("")}</nav>
-    <div class="events-directory section-space">${events.map(EventFeature).join("")}</div>
-    <aside class="source-note"><strong>Source-content note</strong><p>${escapeHtml(eventSourceNote)}</p></aside>`;
+    <div class="events-directory section-space">${events.map(EventFeature).join("")}</div>`;
 }
 
 export function SpcPage() {

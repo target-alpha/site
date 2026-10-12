@@ -68,7 +68,7 @@ export function Newsletter() {
         <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Email Address" required />
         <button type="submit">Subscribe <span aria-hidden="true">↗</span></button>
       </div>
-      <p class="form-note">${escapeHtml(site.newsletter.note)}</p>
+      ${site.newsletter.note && site.newsletter.note !== "Subscription is completed through Target Alpha’s existing newsletter service." ? `<p class="form-note">${escapeHtml(site.newsletter.note)}</p>` : ""}
     </form>
   </section>`;
 }

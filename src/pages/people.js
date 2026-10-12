@@ -9,14 +9,14 @@ const regionalHero = "https://images.squarespace-cdn.com/content/v1/62e9d9245996
 
 export function TeamPage(year) {
   const cohort = nationalTeams[year];
-  return `${PageHero({ eyebrow: "Leadership", title: "National Team", year, image: teamHero, imageAlt: `Target Alpha ${year} National Team` })}
+  return `${PageHero({ eyebrow: "Leadership", title: "National Team", year, modifier: cohort.groupPhoto || year === "2026-27" ? "page-hero--team-photo" : "", image: cohort.groupPhoto || (year === "2026-27" ? "/images/team-2026-27.png" : teamHero), imageAlt: cohort.groupPhotoAlt || `Target Alpha ${year} National Team` })}
     ${ArchiveNav({ label: "National team archive", current: year, items: nationalTeamYears.map((item) => ({ year: item, path: nationalTeams[item].path })) })}
     <div class="team-directory section-space">${TeamDirectory({ members: cohort.members })}</div>`;
 }
 
 export function RegionalTeamPage(year) {
   const cohort = regionalTeams[year];
-  return `${PageHero({ eyebrow: "Leadership / Regional", title: "Regional Executives", year, image: regionalHero, imageAlt: `Target Alpha ${year} Regional Executives` })}
+  return `${PageHero({ eyebrow: "Leadership / Regional", title: "Regional Executives", year, image: cohort.groupPhoto || regionalHero, imageAlt: cohort.groupPhotoAlt || `Target Alpha ${year} Regional Executives` })}
     ${ArchiveNav({ label: "Regional team archive", current: year, items: regionalTeamYears.map((item) => ({ year: item, path: regionalTeams[item].path })) })}
     <div class="team-directory team-directory--regional section-space">
       <div class="people-grid people-grid--regional">${cohort.members.map((person, index) => importPersonCard(person, index)).join("")}</div>

@@ -14,6 +14,8 @@ export const team = defineType({
     defineField({ name: "year", title: "Year", type: "string", description: "Use the format 2026-27.", validation: (rule) => rule.required().regex(/^\d{4}-\d{2}$/) }),
     defineField({ name: "path", title: "Page path", type: "string", description: "For example: /team26-27", validation: (rule) => rule.required().regex(/^\/[a-z0-9-]+$/) }),
     defineField({ name: "sortOrder", title: "Display order", type: "number", initialValue: 0, validation: (rule) => rule.required().integer().min(0) }),
+    defineField({ name: "groupPhoto", title: "Team group photo", type: "image", description: "Upload or replace the group photo shown at the top of this team’s page, then Publish. Other team years keep their own photos.", options: { hotspot: true } }),
+    defineField({ name: "groupPhotoAlt", title: "Group photo description", type: "string", description: "Describe the photo for screen readers. Defaults to the team name and year." }),
     defineField({
       name: "members",
       title: "Members",
