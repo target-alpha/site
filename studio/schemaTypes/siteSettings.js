@@ -51,7 +51,8 @@ export const siteSettings = defineType({
         defineField({ name: "logo", title: "Logo URL", type: "url" }),
         defineField({ name: "social", title: "Social links", type: "object", fields: [
           defineField({ name: "linkedin", title: "LinkedIn", type: "url" }),
-          defineField({ name: "instagram", title: "Instagram", type: "url" })
+          defineField({ name: "instagram", title: "Instagram", type: "url" }),
+          defineField({ name: "youtube", title: "YouTube", type: "url", description: "Channel link shown in the site footer. For example: https://www.youtube.com/@TargetAlphaCanada" })
         ] }),
         defineField({ name: "newsletter", title: "Newsletter integration", type: "object", fields: [
           defineField({ name: "action", title: "Form action", type: "url" }),

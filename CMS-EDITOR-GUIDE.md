@@ -47,7 +47,7 @@ Use a Flexible content section when the team needs a new campaign, announcement,
 Open **Site settings and page copy** to manage:
 
 - Organization name and logo
-- Social links
+- Social links (Instagram, LinkedIn, and YouTube)
 - Contact email addresses
 - Newsletter heading and note
 - Footer tagline
@@ -109,3 +109,7 @@ Upload an image directly whenever possible. Add a clear image description for ac
 ## What still requires a developer
 
 Editors can create new pages of homepage content using Flexible content sections. A completely new visual section type or a new routed website page still requires a matching schema and frontend renderer so design, accessibility, and responsive behavior remain controlled.
+
+## Update the YouTube footer link
+
+Open **Site settings and page copy → Organization details → Social links → YouTube**, paste the channel URL, and select **Publish**. Refresh the website to see the updated link beside Instagram and LinkedIn in the footer. The initial channel is https://www.youtube.com/@TargetAlphaCanada.

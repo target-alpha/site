@@ -88,6 +88,7 @@ export function Footer() {
         <p>Follow Us!</p>
         <a ${linkAttrs(site.social.instagram)}>Instagram ↗</a>
         <a ${linkAttrs(site.social.linkedin)}>LinkedIn ↗</a>
+        ${site.social.youtube ? `<a ${linkAttrs(site.social.youtube)}>YouTube ↗</a>` : ""}
       </div>
     </div>
     <div class="footer-legal"><span>${escapeHtml(site.footer.tagline)}</span><span>© ${new Date().getFullYear()} Target Alpha Canada</span></div>
